@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+const TITLES = {
+  terms: 'Terms of Service',
+  privacy: 'Privacy Policy',
+  cookies: 'Cookie Policy',
+  refunds: 'Refund Policy',
+};
+const DESCS = {
+  terms: 'Условия использования THREADLINE.',
+  privacy: 'Как мы обрабатываем персональные данные пользователей THREADLINE.',
+  cookies: 'Какие cookies мы используем и зачем.',
+  refunds: 'Условия возврата средств за платные тарифы THREADLINE.',
+};
+const title = TITLES['privacy'];
+const description = DESCS['privacy'];
+---
+<BaseLayout title={title} description={description}>
+  <Header />
+  <main class="pt-[140px] pb-24 px-6">
+    <article class="max-w-[720px] mx-auto">
+      <a href="/" class="text-[12px] hover:text-white" style="color: hsl(255,8%,50%);">← На главную</a>
+      <h1 class="font-display text-[40px] font-bold leading-[1.05] tracking-[-0.02em] mt-4 mb-6">{title}</h1>
+      <p class="text-[15px] leading-relaxed" style="color: hsl(255,8%,68%);">
+        Документ в процессе подготовки. Если тебе нужна конкретная информация до публикации —
+        напиши на <a href="mailto:legal@threadline.tigerapps.pro" class="text-mint" style="color: #42DFC1;">legal@threadline.tigerapps.pro</a>.
+      </p>
+    </article>
+  </main>
+  <Footer />
+</BaseLayout>

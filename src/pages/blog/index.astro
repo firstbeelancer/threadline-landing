@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const posts = [
+  { slug: 'welcome', date: '2026-06-01', title: 'Добро пожаловать в Threadline', excerpt: 'Почему мы строим визуальный workspace именно для работы с ИИ-артефактами, а не очередной Notion.' },
+  { slug: 'agent-api', date: '2026-06-10', title: 'API для ИИ-агентов: как выдавать granular-токены', excerpt: 'Разбираем паттерн scope-based авторизации на примере Threadline.' },
+];
+---
+<BaseLayout title="Блог — THREADLINE" description="Идеи, кейсы и продуктовые обновления THREADLINE.">
+  <Header />
+  <main class="pt-[140px] pb-24 px-6">
+    <div class="max-w-[800px] mx-auto">
+      <div class="section-eyebrow">Блог</div>
+      <h1 class="font-display text-[44px] font-bold leading-[1.05] tracking-[-0.02em] mb-3">Идеи и обновления</h1>
+      <p class="text-[15px] mb-12" style="color: hsl(255,8%,65%);">Кейсы, продуктовые апдейты и наши размышления о работе с ИИ.</p>
+      <div class="space-y-4">
+        {posts.map((p) => (
+          <a href={`/blog/${p.slug}`} class="block surface-card p-5 hover:bg-white/[0.04] transition-colors">
+            <div class="text-[11px] mb-1" style="color: hsl(255,8%,40%);">{new Date(p.date).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+            <h2 class="text-[18px] font-semibold mb-1" style="color: hsl(260, 20%, 92%);">{p.title}</h2>
+            <p class="text-[13.5px]" style="color: hsl(255,8%,62%);">{p.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
