@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
 
 const features = [
   { icon: 'layers', title: 'Бесконечный холст', body: 'Промты, HTML, картинки, видео, голосовые и todo — на одном борде. Связи между ними как в Miro, но быстрее и в одном месте.' },
@@ -19,14 +20,14 @@ const steps = [
 ];
 
 const cardTypes = [
-  { icon: '✨', name: 'Промт', desc: 'Идея → текст' },
-  { icon: '📝', name: 'Текст', desc: 'Заметка' },
-  { icon: '🖼', name: 'Картинка', desc: 'Генерация/загрузка' },
-  { icon: '🎬', name: 'Видео', desc: 'Превью+исходник' },
-  { icon: '</>', name: 'HTML', desc: 'Песочница' },
-  { icon: '🎙', name: 'Голос', desc: 'Аудио+транскрипт' },
-  { icon: '📊', name: 'PDF/PPTX', desc: 'С превью' },
-  { icon: '+', name: 'Свои типы', desc: 'Расширяемо' },
+  { icon: 'sparkle', name: 'Промт', desc: 'Идея → текст' },
+  { icon: 'text', name: 'Текст', desc: 'Заметка' },
+  { icon: 'image', name: 'Картинка', desc: 'Генерация/загрузка' },
+  { icon: 'video', name: 'Видео', desc: 'Превью+исходник' },
+  { icon: 'code', name: 'HTML', desc: 'Песочница' },
+  { icon: 'mic', name: 'Голос', desc: 'Аудио+транскрипт' },
+  { icon: 'doc', name: 'PDF/PPTX', desc: 'С превью' },
+  { icon: 'plus', name: 'Свои типы', desc: 'Расширяемо' },
 ];
 
 const plans = [
@@ -95,11 +96,17 @@ const faqs = [
           <a
             href="https://threadline.tigerapps.pro/login"
             class="cta-primary"
-          >🚀 Начать бесплатно</a>
+          >
+            <Icon name="rocket" size={16} class="shrink-0" />
+            Начать бесплатно
+          </a>
           <a
             href="#features"
             class="cta-ghost"
-          >Посмотреть как устроено →</a>
+          >
+            Посмотреть как устроено
+            <Icon name="arrow" size={14} class="shrink-0" />
+          </a>
         </div>
 
         <div class="relative mt-20 mx-auto max-w-[920px] mockup reveal">
@@ -140,22 +147,22 @@ const faqs = [
                 <path d="M 380 200 C 460 200, 460 260, 510 260" stroke="url(#line)" stroke-width="1.5" fill="none"></path>
               </svg>
               <div class="mock-card" style="left: 60px; top: 50px; --accent: #6D4ADE;">
-                <div class="mock-card-icon" style="background: rgba(109,74,222,0.24); color: #6D4ADE;">✨</div>
+                <div class="mock-card-icon" style="background: rgba(109,74,222,0.24); color: #6D4ADE;"><Icon name="sparkle" size={8} /></div>
                 <div class="mock-card-title">Промт: Hero-секция</div>
                 <div class="mock-card-body">Сгенерируй текст для лендинга в стиле Vercel...</div>
               </div>
               <div class="mock-card" style="left: 280px; top: 160px; --accent: #42DFC1;">
-                <div class="mock-card-icon" style="background: rgba(66,223,193,0.24); color: #42DFC1;">&lt;/&gt;</div>
+                <div class="mock-card-icon" style="background: rgba(66,223,193,0.24); color: #42DFC1;"><Icon name="code" size={8} /></div>
                 <div class="mock-card-title">HTML: лендинг</div>
                 <div class="mock-card-body">&lt;section class='hero'&gt;...&lt;/section&gt;</div>
               </div>
               <div class="mock-card" style="left: 280px; top: 280px; --accent: #42DFC1;">
-                <div class="mock-card-icon" style="background: rgba(66,223,193,0.24); color: #42DFC1;">🖼</div>
+                <div class="mock-card-icon" style="background: rgba(66,223,193,0.24); color: #42DFC1;"><Icon name="image" size={8} /></div>
                 <div class="mock-card-title">Image: макет</div>
                 <div class="mock-card-body">mockup-v3.png</div>
               </div>
               <div class="mock-card" style="left: 420px; top: 220px; --accent: #EAB308;">
-                <div class="mock-card-icon" style="background: rgba(234,179,8,0.24); color: #EAB308;">🎙</div>
+                <div class="mock-card-icon" style="background: rgba(234,179,8,0.24); color: #EAB308;"><Icon name="mic" size={8} /></div>
                 <div class="mock-card-title">Голос: правки</div>
                 <div class="mock-card-body">0:42 — укоротить intro</div>
               </div>
@@ -181,11 +188,11 @@ const faqs = [
           Сделано для тех, кто работает с ИИ каждый день
         </div>
         <div class="flex items-center justify-center gap-x-12 gap-y-4 flex-wrap text-[12.5px] font-medium" style="color: hsl(255,8%,50%);">
-          <span>🤖 ML-инженеры</span>
-          <span>👨‍💻 Разработчики</span>
-          <span>🎨 Продакт-дизайнеры</span>
-          <span>🎙 Подкастеры</span>
-          <span>✍️ Копирайтеры</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="robot" size={14} />ML-инженеры</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="terminal" size={14} />Разработчики</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="brush" size={14} />Продакт-дизайнеры</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="mic" size={14} />Подкастеры</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="pencil" size={14} />Копирайтеры</span>
         </div>
       </div>
     </section>
@@ -201,7 +208,9 @@ const faqs = [
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-12">
           {features.map((f) => (
             <article class="feature-card reveal">
-              <div class="feature-icon">{f.title === 'Бесконечный холст' ? '▣' : f.title === 'ИИ-транскрипция' ? '🤖' : f.title === 'API для твоих агентов' ? '</>' : f.title === 'Шаринг по ссылке' ? '🔗' : f.title === 'S3-совместимое хранилище' ? '☁' : '🛡'}</div>
+              <div class="feature-icon">
+                <Icon name={f.icon} size={16} />
+              </div>
               <h3 class="text-[14.5px] font-semibold mb-1.5" style="color: hsl(260, 20%, 92%);">{f.title}</h3>
               <p class="text-[12.5px] leading-relaxed" style="color: hsl(255,8%,62%);">{f.body}</p>
             </article>
@@ -241,7 +250,9 @@ const faqs = [
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-12">
           {cardTypes.map((t) => (
             <article class="type-card reveal">
-              <div class="type-icon">{t.icon}</div>
+              <div class="type-icon">
+                <Icon name={t.icon} size={16} />
+              </div>
               <div class="text-[12.5px] font-semibold mb-0.5" style="color: hsl(260, 20%, 92%);">{t.name}</div>
               <div class="text-[10.5px]" style="color: hsl(255,8%,50%);">{t.desc}</div>
             </article>
@@ -271,7 +282,7 @@ const faqs = [
               <ul class="space-y-2.5 mb-6">
                 {p.features.map((feat) => (
                   <li class="flex items-start gap-2 text-[12.5px]" style="color: hsl(260, 20%, 88%);">
-                    <span class={p.featured ? 'check-mint' : 'check-violet'}>✓</span>
+                    <span class={p.featured ? 'check-mint' : 'check-violet'}><Icon name='check' size={14} /></span>
                     <span>{feat}</span>
                   </li>
                 ))}
@@ -299,7 +310,7 @@ const faqs = [
             <details class="faq-item reveal" open={i === 0}>
               <summary>
                 <span>{f.q}</span>
-                <span class="faq-chevron">▾</span>
+                <span class="faq-chevron"><Icon name="chevron" size={14} /></span>
               </summary>
               <p>{f.a}</p>
             </details>
@@ -318,7 +329,10 @@ const faqs = [
             Бесплатно, без карты. Два борда, 1 ГБ — этого хватит, чтобы понять.
           </p>
           <div class="flex items-center justify-center gap-3 relative">
-            <a href="https://threadline.tigerapps.pro/login" class="cta-primary">🚀 Создать аккаунт</a>
+            <a href="https://threadline.tigerapps.pro/login" class="cta-primary">
+              <Icon name="rocket" size={16} class="shrink-0" />
+              Создать аккаунт
+            </a>
             <a href="https://threadline.tigerapps.pro/login" class="cta-ghost">У меня уже есть аккаунт</a>
           </div>
         </div>
