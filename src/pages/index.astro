@@ -5,27 +5,27 @@ import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
 
 const features = [
-  { icon: 'layers', title: 'Бесконечный холст', body: 'Промты, HTML, картинки, видео, голосовые и todo — на одном борде. Связи между ними как в Miro, но быстрее и в одном месте.' },
-  { icon: 'bot', title: 'ИИ-транскрипция', body: 'Записал голос → получил текст. Провайдер и модель настраиваются: OpenAI, OpenRouter, кастомный prompt словаря.' },
-  { icon: 'code', title: 'API для твоих агентов', body: 'Granular-токены, scope по разделам, dev-link в один клик. Агент работает от твоего имени, не от root.' },
-  { icon: 'link', title: 'Шаринг по ссылке', body: 'Public / authenticated доступ к борду. Передал токен — клиент смотрит только то, что ты открыл.' },
-  { icon: 'cloud', title: 'S3-совместимое хранилище', body: 'Оригиналы файлов, превью через LibreOffice. Экспорт борда одним ZIP — JSON + media.' },
-  { icon: 'shield', title: 'OAuth + email/пароль', body: 'Google, Яндекс или email. Hard delete аккаунта, экспорт всех данных, никаких ловушек.' },
+  { icon: 'layers', title: 'Идеи на умной доске', body: 'Собирай ремонт квартиры, интерьер, SaaS-архитектуру, маркетинговую кампанию или дизайн-концепт на одном визуальном борде.' },
+  { icon: 'cloud', title: 'Файлы не теряются', body: 'Картинки, PDF, видео, голосовые, презентации, таблицы и HTML живут как карточки: их можно открыть, скачать, заменить и развивать дальше.' },
+  { icon: 'link', title: 'Связи и эволюции', body: 'Соединяй материалы линиями, сохраняй версии, добавляй референсы и напоминания, чтобы видеть не только результат, но и ход мысли.' },
+  { icon: 'bot', title: 'ИИ-агенты рядом', body: 'Подключай своих ИИ-агентов через API, чтобы они помогали формулировать, раскладывать и сохранять идеи без доступа ко всему аккаунту.' },
+  { icon: 'code', title: 'Работает везде', body: 'Телефон, планшет, ноутбук или рабочий компьютер — открыл браузер и продолжаешь тот же борд. Операционная система не важна.' },
+  { icon: 'shield', title: 'Твои данные под контролем', body: 'Оригиналы файлов хранятся отдельно от карточек, борды можно шарить по ссылке, экспортировать архивом и удалить без ловушек.' },
 ];
 
 const steps = [
   { n: '01', title: 'Создай борд', body: 'Один клик в сайдбаре. Цвет, фон, имя — что угодно. Бордов может быть сколько угодно.' },
-  { n: '02', title: 'Накидывай карточки', body: 'P / T / H / I — четыре горячие клавиши и у тебя prompt, text, html или image. Голосовые добавляются drag-and-drop.' },
-  { n: '03', title: 'Связывай и шаринг', body: 'Тяни линии между карточками. Подключай своего агента через API. Шарь борд по ссылке.' },
+  { n: '02', title: 'Накидывай материалы', body: 'Добавляй текст, картинки, PDF, видео, голос, ссылки и HTML. Threadline превращает материалы в понятные карточки.' },
+  { n: '03', title: 'Связывай и возвращайся', body: 'Тяни линии между карточками, оставляй напоминания, подключай агента через API или шарь борд по ссылке.' },
 ];
 
 const cardTypes = [
-  { icon: 'sparkle', name: 'Промт', desc: 'Идея → текст' },
+  { icon: 'sparkle', name: 'Идея', desc: 'Мысль → структура' },
   { icon: 'text', name: 'Текст', desc: 'Заметка' },
-  { icon: 'image', name: 'Картинка', desc: 'Генерация/загрузка' },
+  { icon: 'image', name: 'Картинка', desc: 'Референс/макет' },
   { icon: 'video', name: 'Видео', desc: 'Превью+исходник' },
-  { icon: 'code', name: 'HTML', desc: 'Песочница' },
-  { icon: 'mic', name: 'Голос', desc: 'Аудио+транскрипт' },
+  { icon: 'code', name: 'HTML', desc: 'Прототип' },
+  { icon: 'mic', name: 'Голос', desc: 'Аудио+текст' },
   { icon: 'doc', name: 'PDF/PPTX', desc: 'С превью' },
   { icon: 'plus', name: 'Свои типы', desc: 'Расширяемо' },
 ];
@@ -65,9 +65,9 @@ const plans = [
 
 const faqs = [
   { q: 'Это облачный сервис или self-hosted?', a: 'Сейчас — облачный, на нашем сервере threadline.tigerapps.pro. Данные хранятся в PostgreSQL, файлы — в S3. Self-hosted появится позже.' },
-  { q: 'Что значит «API для ИИ-агентов»?', a: 'Это granular-токены, которыми твой собственный AI-агент (или скрипт) дёргает Threadline API. Не нужно делиться основным паролем — выдаёшь токен с конкретными scope: только чтение бордов, или только запись карточек, и т.д.' },
-  { q: 'Чем это отличается от Miro / FigJam?', a: 'Miro — про доски для командной работы. Threadline — про визуальную работу с ИИ-артефактами: промтами, HTML-прототипами, голосовыми заметками. У каждой карточки есть тип (image / video / text / html / voice), и они между собой связываются как узлы графа.' },
-  { q: 'А мой старый борд из Notion / FigJam перенесётся?', a: 'Пока — вручную через экспорт ZIP (у нас) и импорт. Автоимпорт из Notion в работе.' },
+  { q: 'Что значит «API для ИИ-агентов»?', a: 'Это granular-токены, которыми твой собственный AI-агент или скрипт дёргает Threadline API. Не нужно делиться основным паролем — выдаёшь токен с конкретными scope: только чтение бордов, только запись карточек и так далее.' },
+  { q: 'Чем это отличается от Miro / FigJam?', a: 'Miro и FigJam в первую очередь про совместную доску. Threadline — про личное и проектное пространство, где доска хранит не только схему, но и оригиналы файлов, референсы, версии, заметки, связи и материалы, которые можно скачать или обновить.' },
+  { q: 'Для каких задач это подходит?', a: 'Для интерьера и ремонта, дизайна, маркетинга, разработки SaaS, стройки, исследований, контента и любых проектов, где нужно видеть идею вместе с материалами, файлами и логикой решений.' },
   { q: 'Можно ли экспортировать всё, если я уйду?', a: 'Да. Settings → Данные → «Экспортировать все борды одним архивом» — получаешь один ZIP со всеми бордами, метаданными и оригиналами файлов.' },
   { q: 'Что с приватностью?', a: 'Аккаунт и OAuth-сессии изолированы, файлы — в нашем S3, доступ только у тебя. Hard delete удаляет всё физически. Мы не читаем твои борды.' },
 ];
@@ -81,16 +81,16 @@ const faqs = [
     <section class="hero relative pt-[160px] pb-24 px-6">
       <div class="max-w-[860px] mx-auto text-center">
         <div class="eyebrow reveal">
-          <span class="text-[11.5px] font-medium">Визуальный workspace для идей, промтов и ИИ-агентов</span>
+          <span class="text-[11.5px] font-medium">Визуальная доска для идей, файлов и проектов</span>
         </div>
         <h1 class="font-display text-[58px] sm:text-[72px] font-bold leading-[0.96] tracking-[-0.02em] mb-6 reveal">
-          Холст для<br />
-          <span class="text-gradient">твоих идей и ИИ</span>
+          Собирай идеи<br />
+          <span class="text-gradient">в живую карту проекта</span>
         </h1>
         <p class="text-[16.5px] leading-relaxed max-w-[600px] mx-auto mb-10 reveal" style="color: hsl(255,8%,68%);">
-          Threadline — это рабочая среда, где промты, HTML-артефакты, изображения, голосовые и
-          связи между ними существуют на одном бесконечном борде. С шарингом, API для агентов и
-          ИИ-транскрипцией.
+          Threadline — не сложный конструктор и не просто mind map. Это удобное пространство,
+          где можно собрать интерьер, ремонт, маркетинговую идею или SaaS-систему: прикреплять
+          файлы разных форматов, связывать их, обновлять, скачивать и продолжать с любого устройства.
         </p>
         <div class="flex items-center justify-center gap-3 flex-wrap reveal">
           <a
@@ -185,14 +185,14 @@ const faqs = [
     <section class="px-6 py-10">
       <div class="max-w-[1100px] mx-auto">
         <div class="text-[10.5px] uppercase tracking-[0.18em] text-center mb-6" style="color: hsl(255,8%,40%);">
-          Сделано для тех, кто работает с ИИ каждый день
+          Сделано для тех, кто думает визуально
         </div>
         <div class="flex items-center justify-center gap-x-12 gap-y-4 flex-wrap text-[12.5px] font-medium" style="color: hsl(255,8%,50%);">
-          <span class="inline-flex items-center gap-1.5"><Icon name="robot" size={14} />ML-инженеры</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="robot" size={14} />Креаторы</span>
           <span class="inline-flex items-center gap-1.5"><Icon name="terminal" size={14} />Разработчики</span>
-          <span class="inline-flex items-center gap-1.5"><Icon name="brush" size={14} />Продакт-дизайнеры</span>
-          <span class="inline-flex items-center gap-1.5"><Icon name="mic" size={14} />Подкастеры</span>
-          <span class="inline-flex items-center gap-1.5"><Icon name="pencil" size={14} />Копирайтеры</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="brush" size={14} />Дизайнеры</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="mic" size={14} />Строители</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="pencil" size={14} />Маркетологи</span>
         </div>
       </div>
     </section>
@@ -202,8 +202,8 @@ const faqs = [
       <div class="max-w-[1100px] mx-auto">
         <div class="text-center max-w-[640px] mx-auto">
           <div class="section-eyebrow">Фичи</div>
-          <h2 class="section-title">Всё, что нужно для работы с ИИ-артефактами</h2>
-          <p class="section-desc">Не ещё один Notion. Не Figma. Рабочая среда, заточенная под то, как ты реально используешь ИИ.</p>
+          <h2 class="section-title">Не просто майнд-мэпер</h2>
+          <p class="section-desc">Threadline хранит не только схему, но и сами материалы: файлы, ссылки, заметки, голос, версии и связи между ними.</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-12">
           {features.map((f) => (
@@ -244,8 +244,8 @@ const faqs = [
       <div class="max-w-[1100px] mx-auto">
         <div class="text-center max-w-[640px] mx-auto">
           <div class="section-eyebrow">Типы карточек</div>
-          <h2 class="section-title">Любой артефакт — в одном месте</h2>
-          <p class="section-desc">Каждая карточка имеет тип. Связи между карточками — это связи между идеями.</p>
+          <h2 class="section-title">Любой материал — в одном месте</h2>
+          <p class="section-desc">Каждая карточка — это мысль, файл или референс. Связи показывают, как идея развивается от первого наброска до решения.</p>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-12">
           {cardTypes.map((t) => (
@@ -326,7 +326,7 @@ const faqs = [
           <div class="cta-glow"></div>
           <h2 class="font-display text-[36px] sm:text-[44px] font-bold leading-[1.05] tracking-[-0.02em] mb-4 relative">Готов попробовать?</h2>
           <p class="text-[15px] max-w-[460px] mx-auto mb-8 relative" style="color: hsl(255,8%,68%);">
-            Бесплатно, без карты. Два борда, 1 ГБ — этого хватит, чтобы понять.
+            Бесплатно, без карты. Два борда и 1 ГБ хватит, чтобы собрать первую идею с файлами, связями и референсами.
           </p>
           <div class="flex items-center justify-center gap-3 relative">
             <a href="https://threadline.tigerapps.pro/login" class="cta-primary">

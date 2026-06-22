@@ -1,7 +1,7 @@
 {
   "name": "THREADLINE",
   "short_name": "THREADLINE",
-  "description": "Визуальная карта твоих идей",
+  "description": "Визуальная доска для идей, файлов и проектов",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#07070f",
