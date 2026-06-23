@@ -76,7 +76,7 @@ const faqs = [
 <BaseLayout>
   <Header />
 
-  <main>
+  <main class="landing-main">
     <!-- ============ HERO ============ -->
     <section class="hero relative pt-[160px] pb-24 px-6">
       <div class="max-w-[860px] mx-auto text-center">
@@ -221,7 +221,7 @@ const faqs = [
     </section>
 
     <!-- ============ HOW ============ -->
-    <section id="how" class="px-6 py-24" style="background: hsl(240, 30%, 5%);">
+    <section id="how" class="px-6 py-24">
       <div class="max-w-[1100px] mx-auto">
         <div class="text-center max-w-[640px] mx-auto">
           <div class="section-eyebrow">Как это работает</div>
@@ -241,7 +241,7 @@ const faqs = [
     </section>
 
     <!-- ============ CARD TYPES ============ -->
-    <section class="px-6 py-24">
+    <section id="formats" class="px-6 py-24">
       <div class="max-w-[1100px] mx-auto">
         <div class="text-center max-w-[640px] mx-auto">
           <div class="section-eyebrow">Типы карточек</div>
@@ -263,7 +263,7 @@ const faqs = [
     </section>
 
     <!-- ============ PRICING ============ -->
-    <section id="pricing" class="px-6 py-24" style="background: hsl(240, 30%, 5%);">
+    <section id="pricing" class="px-6 py-24">
       <div class="max-w-[1100px] mx-auto">
         <div class="text-center max-w-[640px] mx-auto">
           <div class="section-eyebrow">Тарифы</div>
@@ -302,7 +302,7 @@ const faqs = [
     <section id="faq" class="px-6 py-24">
       <div class="max-w-[800px] mx-auto">
         <div class="text-center max-w-[640px] mx-auto">
-          <div class="section-eyebrow">FAQ</div>
+          <div class="section-eyebrow">Вопросы</div>
           <h2 class="section-title">Частые вопросы</h2>
           <p class="section-desc">Коротко о хранении данных, ИИ-агентах, экспорте и практических сценариях использования.</p>
         </div>
@@ -346,10 +346,12 @@ const faqs = [
 
 <style>
   .hero {
+    background: transparent;
+  }
+
+  .landing-main {
     background:
-      radial-gradient(ellipse 60% 50% at 20% 0%, rgba(66,223,193,0.10) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 40% at 80% 5%, rgba(109,74,222,0.14) 0%, transparent 60%),
-      radial-gradient(ellipse 70% 50% at 50% 100%, rgba(66,8,129,0.16) 0%, transparent 70%);
+      linear-gradient(180deg, transparent 0%, rgba(7,7,13,0.10) 46%, rgba(7,7,13,0.22) 100%);
   }
 
   .eyebrow {
