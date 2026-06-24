@@ -7,11 +7,11 @@ import { detectLang, getStrings } from '../../../i18n/dict';
 const lang = 'en' as const;
 const s = getStrings(lang);
 
-const TITLES: Record<string, Record<string, string>> = {
+const TITLES = {
   ru: { terms: 'Условия использования', privacy: 'Политика приватности', cookies: 'Политика использования cookies', refunds: 'Условия возврата средств' },
   en: { terms: 'Terms of Service', privacy: 'Privacy Policy', cookies: 'Cookie Policy', refunds: 'Refund Policy' },
 };
-const DESCS: Record<string, Record<string, string>> = {
+const DESCS = {
   ru: {
     terms: 'Условия использования THREADLINE.',
     privacy: 'Как мы обрабатываем персональные данные пользователей THREADLINE.',
@@ -25,7 +25,7 @@ const DESCS: Record<string, Record<string, string>> = {
     refunds: 'Refund terms for THREADLINE paid plans.',
   },
 };
-const slug = 'privacy';
+const slug = 'refunds';
 const title = TITLES[lang][slug];
 const description = DESCS[lang][slug];
 ---

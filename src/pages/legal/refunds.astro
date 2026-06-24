@@ -2,32 +2,44 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import { detectLang, getStrings } from '../../i18n/dict';
+
+const lang = detectLang(Astro.url.pathname);
+const s = getStrings(lang);
+
 const TITLES = {
-  terms: 'Terms of Service',
-  privacy: 'Privacy Policy',
-  cookies: 'Cookie Policy',
-  refunds: 'Refund Policy',
+  ru: { terms: 'Условия использования', privacy: 'Политика приватности', cookies: 'Политика использования cookies', refunds: 'Условия возврата средств' },
+  en: { terms: 'Terms of Service', privacy: 'Privacy Policy', cookies: 'Cookie Policy', refunds: 'Refund Policy' },
 };
 const DESCS = {
-  terms: 'Условия использования THREADLINE.',
-  privacy: 'Как мы обрабатываем персональные данные пользователей THREADLINE.',
-  cookies: 'Какие cookies мы используем и зачем.',
-  refunds: 'Условия возврата средств за платные тарифы THREADLINE.',
+  ru: {
+    terms: 'Условия использования THREADLINE.',
+    privacy: 'Как мы обрабатываем персональные данные пользователей THREADLINE.',
+    cookies: 'Какие cookies мы используем и зачем.',
+    refunds: 'Условия возврата средств за платные тарифы THREADLINE.',
+  },
+  en: {
+    terms: 'THREADLINE Terms of Service.',
+    privacy: 'How we handle personal data for THREADLINE users.',
+    cookies: 'What cookies we use and why.',
+    refunds: 'Refund terms for THREADLINE paid plans.',
+  },
 };
-const title = TITLES['refunds'];
-const description = DESCS['refunds'];
+const slug = 'refunds';
+const title = TITLES[lang][slug];
+const description = DESCS[lang][slug];
 ---
-<BaseLayout title={title} description={description}>
-  <Header />
+
+<BaseLayout lang={lang} title={title} description={description}>
+  <Header lang={lang} basePath={`/legal/${slug}`} />
   <main class="pt-[140px] pb-24 px-6">
     <article class="max-w-[720px] mx-auto">
-      <a href="/" class="text-[12px] hover:text-white" style="color: hsl(255,8%,50%);">← На главную</a>
+      <a href={lang === 'en' ? '/en' : '/'} class="text-[12px] hover:text-white" style="color: hsl(255,8%,50%);">← {lang === 'en' ? 'Home' : 'На главную'}</a>
       <h1 class="font-display text-[40px] font-bold leading-[1.05] tracking-[-0.02em] mt-4 mb-6">{title}</h1>
       <p class="text-[15px] leading-relaxed" style="color: hsl(255,8%,68%);">
-        Документ в процессе подготовки. Если тебе нужна конкретная информация до публикации —
-        напиши на <a href="mailto:legal@threadline.tigerapps.pro" class="text-mint" style="color: #42DFC1;">legal@threadline.tigerapps.pro</a>.
+        {s.legal.placeholder} <a href="mailto:legal@threadline.tigerapps.pro" class="text-mint" style="color: #42DFC1;">legal@threadline.tigerapps.pro</a>.
       </p>
     </article>
   </main>
-  <Footer />
+  <Footer lang={lang} />
 </BaseLayout>

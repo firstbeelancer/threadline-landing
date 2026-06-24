@@ -1,10 +1,10 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { detectLang, getStrings } from '../../i18n/dict';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { detectLang, getStrings } from '../../../i18n/dict';
 
-const lang = detectLang(Astro.url.pathname);
+const lang = 'en' as const;
 const s = getStrings(lang);
 const post = s.blog.welcome;
 const dateLabel = new Date('2026-06-01').toLocaleDateString(lang === 'en' ? 'en-US' : 'ru-RU', { year: 'numeric', month: 'long', day: 'numeric' });
