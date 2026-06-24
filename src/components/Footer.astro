@@ -1,5 +1,50 @@
 ---
 const year = new Date().getFullYear();
+const { locale = 'ru' } = Astro.props;
+const isEn = locale === 'en';
+const t = isEn
+  ? {
+      description: 'A visual workspace for ideas, files, relationships, and project context.',
+      product: 'Product',
+      features: 'Features',
+      how: 'How it works',
+      formats: 'Card formats',
+      pricing: 'Pricing',
+      capabilities: 'Capabilities',
+      fileStorage: 'File storage',
+      linksVersions: 'Links and versions',
+      aiAgents: 'AI agents',
+      crossPlatform: 'Cross-platform access',
+      contacts: 'Contacts',
+      openApp: 'Open app',
+      support: 'Support',
+      terms: 'Terms of Use',
+      privacy: 'Privacy Policy',
+      rights: 'All rights reserved.',
+      made: 'Made by the tigerapps team',
+      privacyHref: '/en/legal/privacy',
+    }
+  : {
+      description: 'Визуальное пространство для идей, файлов, связей и проектного контекста.',
+      product: 'Продукт',
+      features: 'Возможности',
+      how: 'Как работает',
+      formats: 'Форматы карточек',
+      pricing: 'Тарифы',
+      capabilities: 'Возможности',
+      fileStorage: 'Хранение файлов',
+      linksVersions: 'Связи и версии',
+      aiAgents: 'ИИ-агенты',
+      crossPlatform: 'Кроссплатформенность',
+      contacts: 'Контакты',
+      openApp: 'Открыть приложение',
+      support: 'Поддержка',
+      terms: 'Условия использования',
+      privacy: 'Политика приватности',
+      rights: 'Все права защищены.',
+      made: 'Сделано в команде tigerapps',
+      privacyHref: '/legal/privacy',
+    };
 ---
 <footer class="site-footer px-6 py-14">
   <div class="max-w-[1100px] mx-auto">
@@ -12,40 +57,40 @@ const year = new Date().getFullYear();
           </span>
         </div>
         <p class="text-[12px] leading-relaxed max-w-[240px]" style="color: hsl(255,8%,45%);">
-          Визуальное пространство для идей, файлов, связей и проектного контекста.
+          {t.description}
         </p>
       </div>
       <div>
-        <div class="text-[10.5px] font-semibold uppercase tracking-widest mb-3" style="color: hsl(255,8%,40%);">Продукт</div>
+        <div class="text-[10.5px] font-semibold uppercase tracking-widest mb-3" style="color: hsl(255,8%,40%);">{t.product}</div>
         <ul class="space-y-2 text-[12.5px]" style="color: hsl(255,8%,60%);">
-          <li><a href="#features" class="hover:text-white transition-colors">Возможности</a></li>
-          <li><a href="#how" class="hover:text-white transition-colors">Как работает</a></li>
-          <li><a href="#formats" class="hover:text-white transition-colors">Форматы карточек</a></li>
-          <li><a href="#pricing" class="hover:text-white transition-colors">Тарифы</a></li>
+          <li><a href="/#features" class="hover:text-white transition-colors">{t.features}</a></li>
+          <li><a href="/#how" class="hover:text-white transition-colors">{t.how}</a></li>
+          <li><a href="/#formats" class="hover:text-white transition-colors">{t.formats}</a></li>
+          <li><a href="/#pricing" class="hover:text-white transition-colors">{t.pricing}</a></li>
         </ul>
       </div>
       <div>
-        <div class="text-[10.5px] font-semibold uppercase tracking-widest mb-3" style="color: hsl(255,8%,40%);">Возможности</div>
+        <div class="text-[10.5px] font-semibold uppercase tracking-widest mb-3" style="color: hsl(255,8%,40%);">{t.capabilities}</div>
         <ul class="space-y-2 text-[12.5px]" style="color: hsl(255,8%,60%);">
-          <li><a href="#features" class="hover:text-white transition-colors">Хранение файлов</a></li>
-          <li><a href="#features" class="hover:text-white transition-colors">Связи и версии</a></li>
-          <li><a href="#features" class="hover:text-white transition-colors">ИИ-агенты</a></li>
-          <li><a href="#features" class="hover:text-white transition-colors">Кроссплатформенность</a></li>
+          <li><a href="/#features" class="hover:text-white transition-colors">{t.fileStorage}</a></li>
+          <li><a href="/#features" class="hover:text-white transition-colors">{t.linksVersions}</a></li>
+          <li><a href="/#features" class="hover:text-white transition-colors">{t.aiAgents}</a></li>
+          <li><a href="/#features" class="hover:text-white transition-colors">{t.crossPlatform}</a></li>
         </ul>
       </div>
       <div>
-        <div class="text-[10.5px] font-semibold uppercase tracking-widest mb-3" style="color: hsl(255,8%,40%);">Контакты</div>
+        <div class="text-[10.5px] font-semibold uppercase tracking-widest mb-3" style="color: hsl(255,8%,40%);">{t.contacts}</div>
         <ul class="space-y-2 text-[12.5px]" style="color: hsl(255,8%,60%);">
-          <li><a href="https://threadline.tigerapps.pro/login" class="hover:text-white transition-colors">Открыть приложение</a></li>
-          <li><a href="mailto:support@threadline.tigerapps.pro" class="hover:text-white transition-colors">Поддержка</a></li>
-          <li><a href="/legal/terms" class="hover:text-white transition-colors">Условия использования</a></li>
-          <li><a href="/legal/privacy" class="hover:text-white transition-colors">Политика приватности</a></li>
+          <li><a href="https://threadline.tigerapps.pro/login" class="hover:text-white transition-colors">{t.openApp}</a></li>
+          <li><a href="mailto:support@threadline.tigerapps.pro" class="hover:text-white transition-colors">{t.support}</a></li>
+          <li><a href="/legal/terms" class="hover:text-white transition-colors">{t.terms}</a></li>
+          <li><a href={t.privacyHref} class="hover:text-white transition-colors">{t.privacy}</a></li>
         </ul>
       </div>
     </div>
     <div class="flex items-center justify-between text-[11.5px] pt-6 hairline-top" style="color: hsl(255,8%,40%);">
-      <div>© {year} THREADLINE. Все права защищены.</div>
-      <div>Сделано в команде tigerapps</div>
+      <div>© {year} THREADLINE. {t.rights}</div>
+      <div>{t.made}</div>
     </div>
   </div>
 </footer>

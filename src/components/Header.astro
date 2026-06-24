@@ -1,32 +1,52 @@
 ---
-const { current = '' } = Astro.props;
+const { locale = 'ru' } = Astro.props;
+const isEn = locale === 'en';
+const nav = isEn
+  ? {
+      features: 'Features',
+      how: 'How it works',
+      formats: 'Formats',
+      pricing: 'Pricing',
+      faq: 'Questions',
+      signIn: 'Sign in',
+      cta: 'Start free',
+    }
+  : {
+      features: 'Возможности',
+      how: 'Как работает',
+      formats: 'Форматы',
+      pricing: 'Тарифы',
+      faq: 'Вопросы',
+      signIn: 'Войти',
+      cta: 'Начать бесплатно',
+    };
 ---
 <header id="top" class="fixed top-0 left-0 right-0 z-50 nav-blur">
   <nav class="max-w-[1200px] mx-auto px-6 h-[60px] flex items-center justify-between">
-    <a href="#top" class="flex items-center gap-2.5" aria-label="THREADLINE">
+    <a href="/#top" class="flex items-center gap-2.5" aria-label="THREADLINE">
       <img src="/icon-192.png" alt="THREADLINE" class="w-7 h-7 rounded-[8px]" style="box-shadow: 0 0 20px rgba(66,223,193,0.30);" />
       <span class="font-display text-[15px] font-bold tracking-tight">
         THREAD<span class="text-gradient">LINE</span>
       </span>
     </a>
     <div class="hidden md:flex items-center gap-7 text-[13px]" style="color: hsl(255,8%,65%);">
-      <a href="#features" class="hover:text-white transition-colors">Возможности</a>
-      <a href="#how" class="hover:text-white transition-colors">Как работает</a>
-      <a href="#formats" class="hover:text-white transition-colors">Форматы</a>
-      <a href="#pricing" class="hover:text-white transition-colors">Тарифы</a>
-      <a href="#faq" class="hover:text-white transition-colors">Вопросы</a>
+      <a href="/#features" class="hover:text-white transition-colors">{nav.features}</a>
+      <a href="/#how" class="hover:text-white transition-colors">{nav.how}</a>
+      <a href="/#formats" class="hover:text-white transition-colors">{nav.formats}</a>
+      <a href="/#pricing" class="hover:text-white transition-colors">{nav.pricing}</a>
+      <a href="/#faq" class="hover:text-white transition-colors">{nav.faq}</a>
     </div>
     <div class="flex items-center gap-2.5">
       <a
         href="https://threadline.tigerapps.pro/login"
         class="text-[12.5px] font-medium px-3 h-[34px] rounded-[8px] flex items-center transition-all hover:bg-white/[0.04]"
         style="color: hsl(255,8%,75%);"
-      >Войти</a>
+      >{nav.signIn}</a>
       <a
         href="https://threadline.tigerapps.pro/login"
         class="text-[12.5px] font-semibold px-4 h-[34px] rounded-[9px] flex items-center transition-all"
         style="background: var(--brand-gradient); color: white; box-shadow: 0 0 24px rgba(66,223,193,0.28);"
-      >Начать бесплатно</a>
+      >{nav.cta}</a>
     </div>
   </nav>
 </header>

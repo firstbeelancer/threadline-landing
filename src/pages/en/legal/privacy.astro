@@ -1,0 +1,266 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+
+const title = 'Privacy Policy';
+const description = 'How THREADLINE processes personal data, user content, files, technical data, and requests sent to AI agents.';
+const updatedAt = 'June 24, 2026';
+
+const sections = [
+  {
+    title: '1. Who processes the data',
+    body: [
+      'The operator of the THREADLINE service is Marina Rinatovna Kalmykova.',
+      'Additional operator details, including address and registration information, will be added after they are finalized.',
+      'For privacy and personal data questions, contact legal@threadline.tigerapps.pro.'
+    ]
+  },
+  {
+    title: '2. Information we process',
+    body: [
+      'Account data: email address, name or display name, protected password data or third-party sign-in data, plan, subscription status, registration date, and profile settings.',
+      'User content: boards, cards, text, files in different formats, images, documents, links, references, relationships between objects, versions, reminders, and other materials that a user creates or uploads to THREADLINE.',
+      'Technical data: IP address, device type, browser, operating system, interface language, approximate country or region, sign-in time, error logs, security events, and performance data.',
+      'Usage data: actions inside the service, opened areas, operations with boards and files, integration settings, material update history, and service object identifiers.'
+    ]
+  },
+  {
+    title: '3. Files, originals, and user content',
+    body: [
+      'THREADLINE is built for storing and connecting user materials. The user decides which files, ideas, images, documents, links, and notes to upload to the service.',
+      'We use user content only to provide THREADLINE functionality: rendering boards, storing files, creating relationships, updating materials, preparing previews, enabling downloads, restoring access, and supporting the user.',
+      'We do not claim ownership of user content. Rights to uploaded materials remain with the user or the rights holder on whose behalf the user acts.'
+    ]
+  },
+  {
+    title: '4. AI agents and external integrations',
+    body: [
+      'If a user connects AI agents or external services, THREADLINE may transmit selected user data to those services only to perform the action requested by the user.',
+      'The user is responsible for choosing the external AI provider, configuring the integration, and selecting the data sent through such integrations.',
+      'We do not use user content to train our own or third-party AI models without the user’s separate explicit consent.'
+    ]
+  },
+  {
+    title: '5. Payment data',
+    body: [
+      'If paid THREADLINE plans are enabled, payments may be processed by external payment providers. Full bank card details, CVV/CVC, and payment authentication data are entered on the payment provider side and are not stored by THREADLINE.',
+      'THREADLINE may receive limited payment information: plan, amount, currency, payment status, operation date, transaction identifier, and payer email if provided by the payment provider.',
+      'Information about the specific payment provider and payment recipient details will be added after the payment setup is finalized.'
+    ]
+  },
+  {
+    title: '6. Cookies and analytics',
+    body: [
+      'We may use cookies, local storage, and similar technologies for authentication, session storage, account protection, remembering settings, error diagnostics, and product analytics.',
+      'Analytics are used to understand load, interface quality, errors, and feature usage. If separate marketing or advertising pixels are connected, information about them will be added to this policy.'
+    ]
+  },
+  {
+    title: '7. Why we process information',
+    body: [
+      'To create accounts, authenticate users, and provide access to THREADLINE.',
+      'To store and display boards, cards, files, relationships, versions, reminders, and other user materials.',
+      'To maintain service security, prevent abuse, investigate errors, and protect accounts.',
+      'To respond to support requests, send important service notices, and comply with legal obligations.',
+      'To improve product performance, interface quality, reliability, and stability.'
+    ]
+  },
+  {
+    title: '8. Sharing information with third parties',
+    body: [
+      'We may share data only to the extent necessary for THREADLINE to operate: with hosting providers, object storage providers, email and infrastructure services, payment providers, analytics tools, security services, and AI providers selected by the user.',
+      'Contractors and providers receive access only to the data required to perform a specific technical or contractual function.',
+      'We may also disclose data if required by law, court order, request from an authorized public authority, or to protect the rights, safety, and legitimate interests of THREADLINE and its users.'
+    ]
+  },
+  {
+    title: '9. Retention and security',
+    body: [
+      'We keep data for as long as needed to operate the account, perform obligations, maintain security, resolve disputes, and comply with applicable legal requirements.',
+      'After account deletion, some data may remain for a limited time in backups, security logs, payment records, and legally significant records where necessary.',
+      'We apply technical and organizational safeguards: access controls, protected password storage, encrypted connections, backups, security logs, and error monitoring. However, no method of transmission or storage is absolutely secure.'
+    ]
+  },
+  {
+    title: '10. User rights',
+    body: [
+      'A user may request access to their data, correction, deletion, restriction of processing, export of data, or account termination.',
+      'Some data cannot be deleted immediately where retention is required for security, payment accounting, tax, anti-fraud, or other mandatory purposes.',
+      'To make a personal data request, contact legal@threadline.tigerapps.pro from the email address linked to the account or provide information that allows us to verify the account relationship.'
+    ]
+  },
+  {
+    title: '11. Children',
+    body: [
+      'THREADLINE is not intended for independent use by children below the age at which they can consent to personal data processing under applicable law.',
+      'If you believe a child has provided personal data to us without the required consent, contact legal@threadline.tigerapps.pro.'
+    ]
+  },
+  {
+    title: '12. Changes to this policy',
+    body: [
+      'We may update this policy as THREADLINE evolves, new features or providers are connected, payment flows are introduced, or legal requirements change.',
+      'The current version is published on this page. If changes materially affect user rights, we will try to notify users in a noticeable way.'
+    ]
+  },
+  {
+    title: '13. Contact information',
+    body: [
+      'Operator: Marina Rinatovna Kalmykova.',
+      'Privacy email: legal@threadline.tigerapps.pro.',
+      'Support email: support@threadline.tigerapps.pro.'
+    ]
+  }
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical="https://landing-bvn34s5k5p.82.21.153.180.sslip.io/en/legal/privacy"
+  lang="en"
+  ogLocale="en_US"
+>
+  <Header locale="en" />
+  <main class="pt-[128px] pb-24 px-6">
+    <article class="legal-doc max-w-[820px] mx-auto">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-8">
+        <a href="/" class="text-[12px] hover:text-white transition-colors" style="color: hsl(255,8%,55%);">← Home</a>
+        <a href="/legal/privacy" class="language-link">Русская версия</a>
+      </div>
+
+      <p class="eyebrow">THREADLINE Legal</p>
+      <h1>{title}</h1>
+      <p class="lead">
+        This policy explains what information THREADLINE processes, why the service needs it, and how users can manage their data.
+      </p>
+      <p class="updated">Last updated: {updatedAt}</p>
+
+      <div class="notice">
+        This document is prepared for the current public version of THREADLINE. Details that have not yet been confirmed are not invented and will be added later.
+      </div>
+
+      <div class="sections">
+        {sections.map((section) => (
+          <section>
+            <h2>{section.title}</h2>
+            {section.body.map((paragraph) => <p>{paragraph}</p>)}
+          </section>
+        ))}
+      </div>
+    </article>
+  </main>
+  <Footer locale="en" />
+</BaseLayout>
+
+<style>
+  .legal-doc {
+    color: hsl(260, 20%, 92%);
+  }
+
+  .language-link {
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 9px;
+    padding: 0 12px;
+    font-size: 12px;
+    color: hsl(255,8%,72%);
+    background: rgba(255,255,255,0.03);
+    transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+  }
+
+  .language-link:hover {
+    color: white;
+    border-color: rgba(66,223,193,0.34);
+    background: rgba(66,223,193,0.08);
+  }
+
+  .eyebrow {
+    margin: 0 0 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mint);
+  }
+
+  h1 {
+    margin: 0;
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    font-size: clamp(36px, 6vw, 64px);
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+
+  .lead {
+    margin: 22px 0 0;
+    max-width: 720px;
+    font-size: 17px;
+    line-height: 1.72;
+    color: hsl(255,8%,70%);
+  }
+
+  .updated {
+    margin: 18px 0 0;
+    font-size: 13px;
+    color: hsl(255,8%,52%);
+  }
+
+  .notice {
+    margin: 34px 0 0;
+    border: 1px solid rgba(66,223,193,0.18);
+    border-radius: 14px;
+    padding: 18px 20px;
+    background: rgba(66,223,193,0.055);
+    color: hsl(255,8%,76%);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .sections {
+    margin-top: 42px;
+    display: grid;
+    gap: 34px;
+  }
+
+  section {
+    padding-top: 2px;
+  }
+
+  h2 {
+    margin: 0 0 14px;
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    font-size: 22px;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  section p {
+    margin: 0 0 12px;
+    color: hsl(255,8%,68%);
+    font-size: 15px;
+    line-height: 1.72;
+  }
+
+  section p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 640px) {
+    .legal-doc {
+      max-width: 100%;
+    }
+
+    .notice {
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+  }
+</style>

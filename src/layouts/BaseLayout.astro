@@ -6,6 +6,8 @@ export interface Props {
   description?: string;
   canonical?: string;
   ogImage?: string;
+  lang?: string;
+  ogLocale?: string;
 }
 
 const {
@@ -13,6 +15,8 @@ const {
   description = 'Threadline помогает собирать идеи, файлы, референсы и заметки на умных визуальных бордах: от ремонта квартиры до SaaS-продукта. Работает в браузере на телефоне, планшете и компьютере, поддерживает связи между материалами и подключение ИИ-агентов.',
   canonical = 'https://threadline.tigerapps.pro/',
   ogImage = 'https://threadline.tigerapps.pro/og-cover.png',
+  lang = 'ru',
+  ogLocale = 'ru_RU',
 } = Astro.props;
 
 const siteName = 'THREADLINE';
@@ -20,7 +24,7 @@ const fullTitle = title.includes('THREADLINE') ? title : `${title} — ${siteNam
 ---
 
 <!doctype html>
-<html lang="ru" class="scroll-smooth">
+<html lang={lang} class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -40,7 +44,7 @@ const fullTitle = title.includes('THREADLINE') ? title : `${title} — ${siteNam
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:locale" content={ogLocale} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -49,7 +53,7 @@ const fullTitle = title.includes('THREADLINE') ? title : `${title} — ${siteNam
     <meta name="twitter:image" content={ogImage} />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/icon-192.png" />
     <link rel="manifest" href="/manifest.json" />
 
