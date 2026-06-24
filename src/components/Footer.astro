@@ -1,52 +1,19 @@
 ---
+import { detectLang, getStrings, type Lang } from '../i18n/dict';
+
+export interface Props {
+  lang?: Lang;
+}
+
+const { lang = detectLang(Astro.url.pathname) } = Astro.props;
+const s = getStrings(lang);
 const year = new Date().getFullYear();
-const { locale = 'ru' } = Astro.props;
-const isEn = locale === 'en';
-const t = isEn
-  ? {
-      description: 'A visual workspace for ideas, files, relationships, and project context.',
-      product: 'Product',
-      features: 'Features',
-      how: 'How it works',
-      formats: 'Card formats',
-      pricing: 'Pricing',
-      capabilities: 'Capabilities',
-      fileStorage: 'File storage',
-      linksVersions: 'Links and versions',
-      aiAgents: 'AI agents',
-      crossPlatform: 'Cross-platform access',
-      contacts: 'Contacts',
-      openApp: 'Open app',
-      support: 'Support',
-      terms: 'Terms of Use',
-      privacy: 'Privacy Policy',
-      rights: 'All rights reserved.',
-      made: 'Made by the tigerapps team',
-      privacyHref: '/en/legal/privacy',
-    }
-  : {
-      description: 'Визуальное пространство для идей, файлов, связей и проектного контекста.',
-      product: 'Продукт',
-      features: 'Возможности',
-      how: 'Как работает',
-      formats: 'Форматы карточек',
-      pricing: 'Тарифы',
-      capabilities: 'Возможности',
-      fileStorage: 'Хранение файлов',
-      linksVersions: 'Связи и версии',
-      aiAgents: 'ИИ-агенты',
-      crossPlatform: 'Кроссплатформенность',
-      contacts: 'Контакты',
-      openApp: 'Открыть приложение',
-      support: 'Поддержка',
-      terms: 'Условия использования',
-      privacy: 'Политика приватности',
-      rights: 'Все права защищены.',
-      made: 'Сделано в команде tigerapps',
-      privacyHref: '/legal/privacy',
-    };
+
+const pathFor = (target: Lang) => (target === 'en' ? '/en' : '/');
+const docPath = (slug: string, target: Lang) => (target === 'en' ? `/en/${slug}` : `/${slug}`);
 ---
-<footer class="site-footer px-6 py-14">
+
+<footer class="px-6 py-14 hairline-top">
   <div class="max-w-[1100px] mx-auto">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
       <div class="col-span-2 md:col-span-1">
@@ -57,47 +24,40 @@ const t = isEn
           </span>
         </div>
         <p class="text-[12px] leading-relaxed max-w-[240px]" style="color: hsl(255,8%,45%);">
-          {t.description}
+          {s.footer.tagline}
         </p>
       </div>
       <div>
-        <div class="text-[10.5px] font-semibold uppercase tracking-widest mb-3" style="color: hsl(255,8%,40%);">{t.product}</div>
+        <div class="text-[10.5px] font-semibold uppercase tracking-widest mb-3" style="color: hsl(255,8%,40%);">{s.footer.product}</div>
         <ul class="space-y-2 text-[12.5px]" style="color: hsl(255,8%,60%);">
-          <li><a href="/#features" class="hover:text-white transition-colors">{t.features}</a></li>
-          <li><a href="/#how" class="hover:text-white transition-colors">{t.how}</a></li>
-          <li><a href="/#formats" class="hover:text-white transition-colors">{t.formats}</a></li>
-          <li><a href="/#pricing" class="hover:text-white transition-colors">{t.pricing}</a></li>
+          <li><a href={pathFor(lang) + '#features'} class="hover:text-white transition-colors">{s.footer.product_features}</a></li>
+          <li><a href={pathFor(lang) + '#pricing'} class="hover:text-white transition-colors">{s.footer.product_pricing}</a></li>
+          <li><a href="https://threadline.tigerapps.pro/changelog" class="hover:text-white transition-colors">{s.footer.product_changelog}</a></li>
+          <li><a href="https://threadline.tigerapps.pro" class="hover:text-white transition-colors">{s.footer.product_status}</a></li>
         </ul>
       </div>
       <div>
-        <div class="text-[10.5px] font-semibold uppercase tracking-widest mb-3" style="color: hsl(255,8%,40%);">{t.capabilities}</div>
+        <div class="text-[10.5px] font-semibold uppercase tracking-widest mb-3" style="color: hsl(255,8%,40%);">{s.footer.resources}</div>
         <ul class="space-y-2 text-[12.5px]" style="color: hsl(255,8%,60%);">
-          <li><a href="/#features" class="hover:text-white transition-colors">{t.fileStorage}</a></li>
-          <li><a href="/#features" class="hover:text-white transition-colors">{t.linksVersions}</a></li>
-          <li><a href="/#features" class="hover:text-white transition-colors">{t.aiAgents}</a></li>
-          <li><a href="/#features" class="hover:text-white transition-colors">{t.crossPlatform}</a></li>
+          <li><a href={docPath('docs', lang)} class="hover:text-white transition-colors">{s.footer.resources_docs}</a></li>
+          <li><a href={docPath('blog', lang)} class="hover:text-white transition-colors">{s.footer.resources_blog}</a></li>
+          <li><a href="https://threadline.tigerapps.pro" class="hover:text-white transition-colors">{s.footer.resources_api}</a></li>
+          <li><a href="mailto:support@threadline.tigerapps.pro" class="hover:text-white transition-colors">{s.footer.resources_selfhost}</a></li>
         </ul>
       </div>
       <div>
-        <div class="text-[10.5px] font-semibold uppercase tracking-widest mb-3" style="color: hsl(255,8%,40%);">{t.contacts}</div>
+        <div class="text-[10.5px] font-semibold uppercase tracking-widest mb-3" style="color: hsl(255,8%,40%);">{s.footer.legal}</div>
         <ul class="space-y-2 text-[12.5px]" style="color: hsl(255,8%,60%);">
-          <li><a href="https://threadline.tigerapps.pro/login" class="hover:text-white transition-colors">{t.openApp}</a></li>
-          <li><a href="mailto:support@threadline.tigerapps.pro" class="hover:text-white transition-colors">{t.support}</a></li>
-          <li><a href="/legal/terms" class="hover:text-white transition-colors">{t.terms}</a></li>
-          <li><a href={t.privacyHref} class="hover:text-white transition-colors">{t.privacy}</a></li>
+          <li><a href={docPath('legal/terms', lang)} class="hover:text-white transition-colors">{s.footer.legal_terms}</a></li>
+          <li><a href={docPath('legal/privacy', lang)} class="hover:text-white transition-colors">{s.footer.legal_privacy}</a></li>
+          <li><a href={docPath('legal/cookies', lang)} class="hover:text-white transition-colors">{s.footer.legal_cookies}</a></li>
+          <li><a href={docPath('legal/refunds', lang)} class="hover:text-white transition-colors">{s.footer.legal_refunds}</a></li>
         </ul>
       </div>
     </div>
     <div class="flex items-center justify-between text-[11.5px] pt-6 hairline-top" style="color: hsl(255,8%,40%);">
-      <div>© {year} THREADLINE. {t.rights}</div>
-      <div>{t.made}</div>
+      <div>{s.footer.copyright}</div>
+      <div>made in <span class="text-gradient">tigerapps</span></div>
     </div>
   </div>
 </footer>
-
-<style>
-  .site-footer {
-    border-top: 1px solid rgba(255,255,255,0.05);
-    background: linear-gradient(180deg, transparent 0%, rgba(7,7,13,0.36) 100%);
-  }
-</style>

@@ -3,109 +3,46 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
+import { detectLang, getStrings } from '../i18n/dict';
 
-const features = [
-  { icon: 'layers', title: 'Визуализация любых идей', body: 'Собирайте на одном борде интерьер, ремонт, маркетинговую кампанию, продуктовую гипотезу, архитектуру SaaS-системы или личный творческий проект.' },
-  { icon: 'cloud', title: 'Хранение материалов и исходников', body: 'Изображения, PDF, видео, аудио, презентации, таблицы, HTML и другие файлы становятся карточками: их можно открыть, скачать, заменить и использовать повторно.' },
-  { icon: 'link', title: 'Связи, версии и контекст', body: 'Соединяйте материалы между собой, фиксируйте развитие идеи, добавляйте референсы и напоминания, чтобы видеть не только финальный результат, но и логику решений.' },
-  { icon: 'bot', title: 'Подключение ИИ-агентов', body: 'Передавайте своим ИИ-агентам ограниченный доступ через API, чтобы они помогали формулировать, структурировать и сохранять идеи без доступа ко всему аккаунту.' },
-  { icon: 'code', title: 'Кроссплатформенная работа', body: 'Threadline работает в браузере на телефоне, планшете и компьютере. Проекты остаются доступны независимо от операционной системы и устройства.' },
-  { icon: 'shield', title: 'Контроль над данными', body: 'Оригиналы файлов отделены от визуальных карточек, борды можно открыть по ссылке, экспортировать архивом и удалить вместе со связанными материалами.' },
-];
+const lang = detectLang(Astro.url.pathname);
+const s = getStrings(lang);
 
-const steps = [
-  { n: '01', title: 'Создайте пространство', body: 'Откройте новый борд под задачу: ремонт, исследование, дизайн-концепт, запуск продукта или разработку системы.' },
-  { n: '02', title: 'Добавьте материалы', body: 'Разместите тексты, изображения, документы, видео, голосовые заметки, ссылки и прототипы как визуальные карточки.' },
-  { n: '03', title: 'Свяжите и развивайте', body: 'Покажите отношения между карточками, обновляйте файлы, сохраняйте версии, подключайте ИИ-агентов и возвращайтесь к проекту с любого устройства.' },
-];
-
-const cardTypes = [
-  { icon: 'sparkle', name: 'Идея', desc: 'Гипотезы и решения' },
-  { icon: 'text', name: 'Текст', desc: 'Заметки и описания' },
-  { icon: 'image', name: 'Изображение', desc: 'Референсы и макеты' },
-  { icon: 'video', name: 'Видео', desc: 'Превью и оригинал' },
-  { icon: 'code', name: 'HTML', desc: 'Прототипы и вставки' },
-  { icon: 'mic', name: 'Голос', desc: 'Запись и расшифровка' },
-  { icon: 'doc', name: 'Документы', desc: 'PDF, PPTX, таблицы' },
-  { icon: 'plus', name: 'Файлы', desc: 'Разные форматы' },
-];
-
-const plans = [
-  {
-    name: 'Бесплатный',
-    price: '0',
-    period: 'навсегда',
-    description: 'Для знакомства с продуктом и первых личных проектов.',
-    features: ['2 борда', '1 ГБ хранилища', 'Основные типы карточек', 'Доступ к борду по ссылке'],
-    cta: 'Начать бесплатно',
-    href: 'https://threadline.tigerapps.pro/login',
-    featured: false,
-  },
-  {
-    name: 'Стандарт',
-    price: '990',
-    period: 'в месяц',
-    description: 'Для регулярной работы с проектами, материалами и референсами.',
-    features: ['20 бордов', '100 ГБ хранилища', 'ИИ-ассистент и транскрипция', 'API для ИИ-агентов', 'Голосовые и видео-карточки'],
-    cta: 'Выбрать Стандарт',
-    href: 'https://threadline.tigerapps.pro/login',
-    featured: true,
-  },
-  {
-    name: 'Про',
-    price: '4 990',
-    period: 'в месяц',
-    description: 'Для команд и специалистов, которым Threadline нужен как основная рабочая среда.',
-    features: ['Без ограничений по бордам', 'Хранилище без лимитов', 'Приоритетная поддержка', 'Ранний доступ к функциям', 'Кастомные интеграции'],
-    cta: 'Выбрать Про',
-    href: 'https://threadline.tigerapps.pro/login',
-    featured: false,
-  },
-];
-
-const faqs = [
-  { q: 'Это облачный сервис или self-hosted?', a: 'Сейчас Threadline работает как облачный сервис на threadline.tigerapps.pro. Данные хранятся в PostgreSQL, оригинальные файлы — в S3-хранилище. Self-hosted-версия планируется отдельно.' },
-  { q: 'Что значит «API для ИИ-агентов»?', a: 'В Threadline можно выпускать токены с ограниченными правами для внешних ИИ-агентов и скриптов. Агент получает только нужные разрешения: например, чтение бордов, создание карточек или обновление материалов.' },
-  { q: 'Чем это отличается от Miro / FigJam?', a: 'Miro и FigJam в первую очередь решают задачу совместной доски. Threadline дополнительно хранит оригиналы файлов, документы, референсы, версии, заметки, связи и материалы, которые можно скачать, обновить или использовать как основу для следующей итерации.' },
-  { q: 'Для каких задач подходит Threadline?', a: 'Для интерьера и ремонта, дизайна, маркетинга, разработки SaaS-продуктов, строительства, исследований, контента и любых задач, где нужно увидеть идею вместе с файлами, контекстом и логикой решений.' },
-  { q: 'Можно ли экспортировать материалы?', a: 'Да. В настройках можно экспортировать борды архивом: вместе с метаданными, структурой и оригинальными файлами.' },
-  { q: 'Что с приватностью?', a: 'Аккаунты и OAuth-сессии изолированы, доступ к бордам контролируется владельцем, а удаление аккаунта удаляет связанные данные и материалы. Сервис не использует содержимое бордов для публичных витрин или демонстраций.' },
-];
+// Map our internal icon names to Icon component names.
+const featureIcons = ['layers', 'bot', 'code', 'link', 'cloud', 'shield'];
+const cardTypeIcons = ['sparkle', 'text', 'image', 'video', 'code', 'mic', 'doc', 'plus'];
 ---
 
-<BaseLayout>
-  <Header />
+<BaseLayout lang={lang}>
+  <Header lang={lang} basePath="/" />
 
-  <main class="landing-main">
+  <main>
     <!-- ============ HERO ============ -->
     <section class="hero relative pt-[160px] pb-24 px-6">
       <div class="max-w-[860px] mx-auto text-center">
         <div class="eyebrow reveal">
-          <span class="text-[11.5px] font-medium">Визуальное пространство для идей, файлов и проектов</span>
+          <span class="text-[11.5px] font-medium">
+            {lang === 'en'
+              ? 'A visual workspace for ideas, prompts and AI agents'
+              : 'Визуальный workspace для идей, промтов и ИИ-агентов'}
+          </span>
         </div>
         <h1 class="font-display text-[58px] sm:text-[72px] font-bold leading-[0.96] tracking-[-0.02em] mb-6 reveal">
-          Собирайте идеи<br />
-          <span class="text-gradient">в понятную карту проекта</span>
+          {lang === 'en' ? 'A canvas for' : 'Холст для'}<br />
+          <span class="text-gradient">{lang === 'en' ? 'your ideas & AI' : 'твоих идей и ИИ'}</span>
         </h1>
         <p class="text-[16.5px] leading-relaxed max-w-[600px] mx-auto mb-10 reveal" style="color: hsl(255,8%,68%);">
-          Threadline помогает визуализировать идеи и сохранять материалы вокруг них:
-          от интерьера дома и ремонта квартиры до маркетинговой кампании, дизайн-концепции
-          или разработки SaaS-системы. Добавляйте файлы разных форматов, связывайте их между
-          собой, обновляйте версии и продолжайте работу с телефона, планшета или компьютера.
+          {lang === 'en'
+            ? 'Threadline is a workspace where prompts, HTML artefacts, images, voice memos and the connections between them live on a single infinite board. With sharing, an agent API and AI transcription.'
+            : 'Threadline — это рабочая среда, где промты, HTML-артефакты, изображения, голосовые и связи между ними существуют на одном бесконечном борде. С шарингом, API для агентов и ИИ-транскрипцией.'}
         </p>
         <div class="flex items-center justify-center gap-3 flex-wrap reveal">
-          <a
-            href="https://threadline.tigerapps.pro/login"
-            class="cta-primary"
-          >
+          <a href="https://threadline.tigerapps.pro/login" class="cta-primary">
             <Icon name="rocket" size={16} class="shrink-0" />
-            Начать бесплатно
+            {s.hero.cta_create}
           </a>
-          <a
-            href="#features"
-            class="cta-ghost"
-          >
-            Посмотреть возможности
+          <a href="#features" class="cta-ghost">
+            {lang === 'en' ? 'See how it works' : 'Посмотреть как устроено'}
             <Icon name="arrow" size={14} class="shrink-0" />
           </a>
         </div>
@@ -117,22 +54,22 @@ const faqs = [
               <span class="dot" style="background: rgba(234,179,8,0.5);"></span>
               <span class="dot" style="background: rgba(16,185,129,0.5);"></span>
             </div>
-            <div class="mockup-url">threadline.tigerapps.pro/board/прототип-v2</div>
+            <div class="mockup-url">threadline.tigerapps.pro/board/{lang === 'en' ? 'prototype-v2' : 'прототип-v2'}</div>
           </div>
           <div class="mockup-body">
             <aside class="mockup-sidebar">
-              <div class="text-[9.5px] uppercase tracking-widest mb-1.5" style="color: hsl(255,8%,40%);">Борды</div>
+              <div class="text-[9.5px] uppercase tracking-widest mb-1.5" style="color: hsl(255,8%,40%);">{lang === 'en' ? 'Boards' : 'Борды'}</div>
               <div class="mockup-board active">
                 <span class="dot" style="background: #6D4ADE; box-shadow: 0 0 6px #6D4ADE;"></span>
-                Прототип v2
+                {lang === 'en' ? 'Prototype v2' : 'Прототип v2'}
               </div>
               <div class="mockup-board">
                 <span class="dot" style="background: #42DFC1; box-shadow: 0 0 6px #42DFC1;"></span>
-                Research — UX
+                {lang === 'en' ? 'Research — UX' : 'Research — UX'}
               </div>
               <div class="mockup-board">
                 <span class="dot" style="background: #F97316; box-shadow: 0 0 6px #F97316;"></span>
-                Roadmap Q3
+                {lang === 'en' ? 'Roadmap Q3' : 'Roadmap Q3'}
               </div>
             </aside>
             <main class="mockup-canvas">
@@ -149,28 +86,28 @@ const faqs = [
               </svg>
               <div class="mock-card" style="left: 60px; top: 50px; --accent: #6D4ADE;">
                 <div class="mock-card-icon" style="background: rgba(109,74,222,0.24); color: #6D4ADE;"><Icon name="sparkle" size={8} /></div>
-                <div class="mock-card-title">Промт: Hero-секция</div>
-                <div class="mock-card-body">Сгенерируй текст для лендинга в стиле Vercel...</div>
+                <div class="mock-card-title">{lang === 'en' ? 'Prompt: Hero section' : 'Промт: Hero-секция'}</div>
+                <div class="mock-card-body">{lang === 'en' ? 'Generate landing copy in a Vercel style…' : 'Сгенерируй текст для лендинга в стиле Vercel…'}</div>
               </div>
               <div class="mock-card" style="left: 280px; top: 160px; --accent: #42DFC1;">
                 <div class="mock-card-icon" style="background: rgba(66,223,193,0.24); color: #42DFC1;"><Icon name="code" size={8} /></div>
-                <div class="mock-card-title">HTML: лендинг</div>
+                <div class="mock-card-title">{lang === 'en' ? 'HTML: landing' : 'HTML: лендинг'}</div>
                 <div class="mock-card-body">&lt;section class='hero'&gt;...&lt;/section&gt;</div>
               </div>
               <div class="mock-card" style="left: 280px; top: 280px; --accent: #42DFC1;">
                 <div class="mock-card-icon" style="background: rgba(66,223,193,0.24); color: #42DFC1;"><Icon name="image" size={8} /></div>
-                <div class="mock-card-title">Image: макет</div>
+                <div class="mock-card-title">{lang === 'en' ? 'Image: layout' : 'Image: макет'}</div>
                 <div class="mock-card-body">mockup-v3.png</div>
               </div>
               <div class="mock-card" style="left: 420px; top: 220px; --accent: #EAB308;">
                 <div class="mock-card-icon" style="background: rgba(234,179,8,0.24); color: #EAB308;"><Icon name="mic" size={8} /></div>
-                <div class="mock-card-title">Голос: правки</div>
-                <div class="mock-card-body">0:42 — укоротить intro</div>
+                <div class="mock-card-title">{lang === 'en' ? 'Voice: edits' : 'Голос: правки'}</div>
+                <div class="mock-card-body">0:42 — {lang === 'en' ? 'shorten the intro' : 'укоротить intro'}</div>
               </div>
             </main>
             <aside class="mockup-detail">
-              <div class="text-[9.5px] uppercase tracking-widest mb-2" style="color: hsl(255,8%,40%);">Детали карточки</div>
-              <div class="text-[11px] font-semibold mb-2" style="color: hsl(260, 20%, 92%);">HTML: лендинг</div>
+              <div class="text-[9.5px] uppercase tracking-widest mb-2" style="color: hsl(255,8%,40%);">{lang === 'en' ? 'Card details' : 'Детали карточки'}</div>
+              <div class="text-[11px] font-semibold mb-2" style="color: hsl(260, 20%, 92%);">{lang === 'en' ? 'HTML: landing' : 'HTML: лендинг'}</div>
               <div class="badge-mint">html</div>
               <pre class="text-[9.5px] font-mono p-2 rounded-[5px] mt-2" style="background: hsl(240, 20%, 9%); color: hsl(255,8%,60%);">{`<div class="hero">
   <h1>...</h1>
@@ -186,14 +123,14 @@ const faqs = [
     <section class="px-6 py-10">
       <div class="max-w-[1100px] mx-auto">
         <div class="text-[10.5px] uppercase tracking-[0.18em] text-center mb-6" style="color: hsl(255,8%,40%);">
-          Для специалистов и команд, которые работают с большим количеством идей и материалов
+          {lang === 'en' ? 'Built for people who work with AI every day' : 'Сделано для тех, кто работает с ИИ каждый день'}
         </div>
         <div class="flex items-center justify-center gap-x-12 gap-y-4 flex-wrap text-[12.5px] font-medium" style="color: hsl(255,8%,50%);">
-          <span class="inline-flex items-center gap-1.5"><Icon name="robot" size={14} />Креативные команды</span>
-          <span class="inline-flex items-center gap-1.5"><Icon name="terminal" size={14} />Разработчики</span>
-          <span class="inline-flex items-center gap-1.5"><Icon name="brush" size={14} />Дизайнеры</span>
-          <span class="inline-flex items-center gap-1.5"><Icon name="mic" size={14} />Строители</span>
-          <span class="inline-flex items-center gap-1.5"><Icon name="pencil" size={14} />Маркетологи</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="robot" size={14} />{lang === 'en' ? 'ML engineers' : 'ML-инженеры'}</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="terminal" size={14} />{lang === 'en' ? 'Developers' : 'Разработчики'}</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="brush" size={14} />{lang === 'en' ? 'Product designers' : 'Продакт-дизайнеры'}</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="mic" size={14} />{lang === 'en' ? 'Podcasters' : 'Подкастеры'}</span>
+          <span class="inline-flex items-center gap-1.5"><Icon name="pencil" size={14} />{lang === 'en' ? 'Copywriters' : 'Копирайтеры'}</span>
         </div>
       </div>
     </section>
@@ -202,15 +139,15 @@ const faqs = [
     <section id="features" class="px-6 py-24">
       <div class="max-w-[1100px] mx-auto">
         <div class="text-center max-w-[640px] mx-auto">
-          <div class="section-eyebrow">Возможности</div>
-          <h2 class="section-title">Больше, чем майнд-мэп</h2>
-          <p class="section-desc">Threadline объединяет визуальную доску, файловое хранилище и рабочий контекст проекта: материалы, связи, версии, заметки и напоминания остаются в одном месте.</p>
+          <div class="section-eyebrow">{s.nav.features}</div>
+          <h2 class="section-title">{s.features.title}</h2>
+          <p class="section-desc">{s.features.subtitle}</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-12">
-          {features.map((f) => (
+          {s.features.items.map((f, i) => (
             <article class="feature-card reveal">
               <div class="feature-icon">
-                <Icon name={f.icon} size={16} />
+                <Icon name={featureIcons[i]} size={16} />
               </div>
               <h3 class="text-[14.5px] font-semibold mb-1.5" style="color: hsl(260, 20%, 92%);">{f.title}</h3>
               <p class="text-[12.5px] leading-relaxed" style="color: hsl(255,8%,62%);">{f.body}</p>
@@ -221,19 +158,19 @@ const faqs = [
     </section>
 
     <!-- ============ HOW ============ -->
-    <section id="how" class="px-6 py-24">
+    <section id="how" class="px-6 py-24" style="background: hsl(240, 30%, 5%);">
       <div class="max-w-[1100px] mx-auto">
         <div class="text-center max-w-[640px] mx-auto">
-          <div class="section-eyebrow">Как это работает</div>
-          <h2 class="section-title">От идеи до структуры за несколько минут</h2>
-          <p class="section-desc">Threadline не требует сложной настройки. Создайте борд, добавьте материалы и выстройте между ними понятные связи.</p>
+          <div class="section-eyebrow">{s.nav.steps}</div>
+          <h2 class="section-title">{s.steps.title}</h2>
+          <p class="section-desc">{s.steps.subtitle}</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-12">
-          {steps.map((s) => (
+          {s.steps.items.map((step) => (
             <article class="step-card reveal">
-              <div class="step-num text-gradient">{s.n}</div>
-              <h3 class="text-[15px] font-semibold mb-2" style="color: hsl(260, 20%, 92%);">{s.title}</h3>
-              <p class="text-[13px] leading-relaxed" style="color: hsl(255,8%,62%);">{s.body}</p>
+              <div class="step-num text-gradient">{step.n}</div>
+              <h3 class="text-[15px] font-semibold mb-2" style="color: hsl(260, 20%, 92%);">{step.title}</h3>
+              <p class="text-[13px] leading-relaxed" style="color: hsl(255,8%,62%);">{step.body}</p>
             </article>
           ))}
         </div>
@@ -241,18 +178,18 @@ const faqs = [
     </section>
 
     <!-- ============ CARD TYPES ============ -->
-    <section id="formats" class="px-6 py-24">
+    <section id="card-types" class="px-6 py-24">
       <div class="max-w-[1100px] mx-auto">
         <div class="text-center max-w-[640px] mx-auto">
-          <div class="section-eyebrow">Типы карточек</div>
-          <h2 class="section-title">Материалы разных форматов — на одной доске</h2>
-          <p class="section-desc">Каждая карточка хранит мысль, файл или референс. Связи показывают, как идея развивается от первого наброска до решения.</p>
+          <div class="section-eyebrow">{s.nav.cardTypes}</div>
+          <h2 class="section-title">{s.cardTypes.title}</h2>
+          <p class="section-desc">{s.cardTypes.subtitle}</p>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-12">
-          {cardTypes.map((t) => (
+          {s.cardTypes.items.map((t, i) => (
             <article class="type-card reveal">
               <div class="type-icon">
-                <Icon name={t.icon} size={16} />
+                <Icon name={cardTypeIcons[i]} size={16} />
               </div>
               <div class="text-[12.5px] font-semibold mb-0.5" style="color: hsl(260, 20%, 92%);">{t.name}</div>
               <div class="text-[10.5px]" style="color: hsl(255,8%,50%);">{t.desc}</div>
@@ -263,18 +200,18 @@ const faqs = [
     </section>
 
     <!-- ============ PRICING ============ -->
-    <section id="pricing" class="px-6 py-24">
+    <section id="pricing" class="px-6 py-24" style="background: hsl(240, 30%, 5%);">
       <div class="max-w-[1100px] mx-auto">
         <div class="text-center max-w-[640px] mx-auto">
-          <div class="section-eyebrow">Тарифы</div>
-          <h2 class="section-title">Тарифы под разные масштабы работы</h2>
-          <p class="section-desc">Начните бесплатно, расширяйте пространство по мере роста проектов и подключайте расширенные возможности тогда, когда они действительно нужны.</p>
+          <div class="section-eyebrow">{s.nav.pricing}</div>
+          <h2 class="section-title">{s.pricing.title}</h2>
+          <p class="section-desc">{s.pricing.subtitle}</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
-          {plans.map((p) => (
-            <article class={`plan-card ${p.featured ? 'featured' : ''} reveal`}>
-              {p.featured && <div class="plan-badge">Популярный</div>}
-              <div class={`text-[13px] font-semibold mb-1 ${p.featured ? 'text-mint' : ''}`}>{p.name}</div>
+          {s.pricing.plans.map((p) => (
+            <article class={`plan-card ${p.highlight ? 'featured' : ''} reveal`}>
+              {p.highlight && <div class="plan-badge">{lang === 'en' ? 'Popular' : 'Популярный'}</div>}
+              <div class={`text-[13px] font-semibold mb-1 ${p.highlight ? 'text-mint' : ''}`}>{p.name}</div>
               <div class="flex items-baseline gap-1.5 mb-2">
                 <span class="font-display text-[44px] font-bold leading-none tracking-tight" style="color: hsl(260, 20%, 95%);">{p.price}</span>
                 <span class="text-[12px]" style="color: hsl(255,8%,50%);">₽ {p.period}</span>
@@ -283,15 +220,12 @@ const faqs = [
               <ul class="space-y-2.5 mb-6">
                 {p.features.map((feat) => (
                   <li class="flex items-start gap-2 text-[12.5px]" style="color: hsl(260, 20%, 88%);">
-                    <span class={p.featured ? 'check-mint' : 'check-violet'}><Icon name='check' size={14} /></span>
+                    <span class={p.highlight ? 'check-mint' : 'check-violet'}><Icon name='check' size={14} /></span>
                     <span>{feat}</span>
                   </li>
                 ))}
               </ul>
-              <a
-                href={p.href}
-                class={`plan-cta ${p.featured ? 'plan-cta-featured' : 'plan-cta-ghost'}`}
-              >{p.cta}</a>
+              <a href="https://threadline.tigerapps.pro/login" class={`plan-cta ${p.highlight ? 'plan-cta-featured' : 'plan-cta-ghost'}`}>{p.cta}</a>
             </article>
           ))}
         </div>
@@ -302,12 +236,12 @@ const faqs = [
     <section id="faq" class="px-6 py-24">
       <div class="max-w-[800px] mx-auto">
         <div class="text-center max-w-[640px] mx-auto">
-          <div class="section-eyebrow">Вопросы</div>
-          <h2 class="section-title">Частые вопросы</h2>
-          <p class="section-desc">Коротко о хранении данных, ИИ-агентах, экспорте и практических сценариях использования.</p>
+          <div class="section-eyebrow">FAQ</div>
+          <h2 class="section-title">{s.faq.title}</h2>
+          <p class="section-desc">{s.faq.subtitle}</p>
         </div>
         <div class="space-y-2 mt-12">
-          {faqs.map((f, i) => (
+          {s.faq.items.map((f, i) => (
             <details class="faq-item reveal" open={i === 0}>
               <summary>
                 <span>{f.q}</span>
@@ -325,33 +259,31 @@ const faqs = [
       <div class="max-w-[860px] mx-auto">
         <div class="cta-card">
           <div class="cta-glow"></div>
-          <h2 class="font-display text-[36px] sm:text-[44px] font-bold leading-[1.05] tracking-[-0.02em] mb-4 relative">Создайте первый борд в Threadline</h2>
+          <h2 class="font-display text-[36px] sm:text-[44px] font-bold leading-[1.05] tracking-[-0.02em] mb-4 relative">{s.finalCta.title}</h2>
           <p class="text-[15px] max-w-[460px] mx-auto mb-8 relative" style="color: hsl(255,8%,68%);">
-            Бесплатный тариф позволяет собрать первую идею, добавить файлы, связать материалы и оценить, как Threadline подходит вашему рабочему процессу.
+            {s.finalCta.subtitle}
           </p>
           <div class="flex items-center justify-center gap-3 relative">
             <a href="https://threadline.tigerapps.pro/login" class="cta-primary">
               <Icon name="rocket" size={16} class="shrink-0" />
-              Создать аккаунт
+              {s.finalCta.button}
             </a>
-            <a href="https://threadline.tigerapps.pro/login" class="cta-ghost">У меня уже есть аккаунт</a>
+            <a href="https://threadline.tigerapps.pro/login" class="cta-ghost">{lang === 'en' ? 'I already have an account' : 'У меня уже есть аккаунт'}</a>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <Footer />
+  <Footer lang={lang} />
 </BaseLayout>
 
 <style>
   .hero {
-    background: transparent;
-  }
-
-  .landing-main {
     background:
-      linear-gradient(180deg, transparent 0%, rgba(7,7,13,0.10) 46%, rgba(7,7,13,0.22) 100%);
+      radial-gradient(ellipse 60% 50% at 20% 0%, rgba(66,223,193,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 80% 5%, rgba(109,74,222,0.14) 0%, transparent 60%),
+      radial-gradient(ellipse 70% 50% at 50% 100%, rgba(66,8,129,0.16) 0%, transparent 70%);
   }
 
   .eyebrow {

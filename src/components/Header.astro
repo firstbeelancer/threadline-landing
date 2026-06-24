@@ -1,52 +1,57 @@
 ---
-const { locale = 'ru' } = Astro.props;
-const isEn = locale === 'en';
-const nav = isEn
-  ? {
-      features: 'Features',
-      how: 'How it works',
-      formats: 'Formats',
-      pricing: 'Pricing',
-      faq: 'Questions',
-      signIn: 'Sign in',
-      cta: 'Start free',
-    }
-  : {
-      features: 'Возможности',
-      how: 'Как работает',
-      formats: 'Форматы',
-      pricing: 'Тарифы',
-      faq: 'Вопросы',
-      signIn: 'Войти',
-      cta: 'Начать бесплатно',
-    };
+import { detectLang, getStrings, type Lang } from '../i18n/dict';
+
+export interface Props {
+  current?: string;
+  lang?: Lang;
+  basePath?: string;
+}
+
+const { current = '', lang = detectLang(Astro.url.pathname), basePath = '/' } = Astro.props;
+const s = getStrings(lang);
+
+const pathFor = (target: Lang) => (target === 'en' ? `/en${basePath === '/' ? '' : basePath}` : basePath);
 ---
+
 <header id="top" class="fixed top-0 left-0 right-0 z-50 nav-blur">
   <nav class="max-w-[1200px] mx-auto px-6 h-[60px] flex items-center justify-between">
-    <a href="/#top" class="flex items-center gap-2.5" aria-label="THREADLINE">
+    <a href={lang === 'en' ? '/en' : '/'} class="flex items-center gap-2.5" aria-label="THREADLINE">
       <img src="/icon-192.png" alt="THREADLINE" class="w-7 h-7 rounded-[8px]" style="box-shadow: 0 0 20px rgba(66,223,193,0.30);" />
       <span class="font-display text-[15px] font-bold tracking-tight">
         THREAD<span class="text-gradient">LINE</span>
       </span>
     </a>
     <div class="hidden md:flex items-center gap-7 text-[13px]" style="color: hsl(255,8%,65%);">
-      <a href="/#features" class="hover:text-white transition-colors">{nav.features}</a>
-      <a href="/#how" class="hover:text-white transition-colors">{nav.how}</a>
-      <a href="/#formats" class="hover:text-white transition-colors">{nav.formats}</a>
-      <a href="/#pricing" class="hover:text-white transition-colors">{nav.pricing}</a>
-      <a href="/#faq" class="hover:text-white transition-colors">{nav.faq}</a>
+      <a href={lang === 'en' ? '/en/#features' : '/#features'} class="hover:text-white transition-colors">{s.nav.features}</a>
+      <a href={lang === 'en' ? '/en/#how' : '/#how'} class="hover:text-white transition-colors">{s.nav.steps}</a>
+      <a href={lang === 'en' ? '/en/#card-types' : '/#card-types'} class="hover:text-white transition-colors">{s.nav.cardTypes}</a>
+      <a href={lang === 'en' ? '/en/#pricing' : '/#pricing'} class="hover:text-white transition-colors">{s.nav.pricing}</a>
+      <a href={lang === 'en' ? '/en/#faq' : '/#faq'} class="hover:text-white transition-colors">{s.nav.faq}</a>
+      <a href={pathFor(lang)} class="hover:text-white transition-colors">{s.nav.blog}</a>
     </div>
     <div class="flex items-center gap-2.5">
+      <div class="hidden sm:inline-flex overflow-hidden rounded-md border border-white/10 bg-white/5 text-[11px] font-medium" aria-label="Language">
+        <a
+          href={pathFor('ru')}
+          aria-current={lang === 'ru' ? 'true' : 'false'}
+          class={`px-2 h-[28px] flex items-center transition-colors ${lang === 'ru' ? 'bg-white/10 text-white' : 'text-white/55 hover:text-white'}`}
+        >RU</a>
+        <a
+          href={pathFor('en')}
+          aria-current={lang === 'en' ? 'true' : 'false'}
+          class={`px-2 h-[28px] flex items-center transition-colors ${lang === 'en' ? 'bg-white/10 text-white' : 'text-white/55 hover:text-white'}`}
+        >EN</a>
+      </div>
       <a
         href="https://threadline.tigerapps.pro/login"
         class="text-[12.5px] font-medium px-3 h-[34px] rounded-[8px] flex items-center transition-all hover:bg-white/[0.04]"
         style="color: hsl(255,8%,75%);"
-      >{nav.signIn}</a>
+      >{s.nav.signin}</a>
       <a
         href="https://threadline.tigerapps.pro/login"
         class="text-[12.5px] font-semibold px-4 h-[34px] rounded-[9px] flex items-center transition-all"
         style="background: var(--brand-gradient); color: white; box-shadow: 0 0 24px rgba(66,223,193,0.28);"
-      >{nav.cta}</a>
+      >{s.nav.getStarted} →</a>
     </div>
   </nav>
 </header>

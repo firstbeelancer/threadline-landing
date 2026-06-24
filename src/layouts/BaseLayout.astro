@@ -1,22 +1,27 @@
 ---
 import '../styles/global.css';
+import { detectLang, getStrings, type Lang } from '../i18n/dict';
 
 export interface Props {
   title?: string;
   description?: string;
   canonical?: string;
   ogImage?: string;
-  lang?: string;
-  ogLocale?: string;
+  lang?: Lang;
 }
 
+const detectedLang = detectLang(Astro.url.pathname);
 const {
-  title = 'THREADLINE — визуальная доска для идей, файлов и проектов',
-  description = 'Threadline помогает собирать идеи, файлы, референсы и заметки на умных визуальных бордах: от ремонта квартиры до SaaS-продукта. Работает в браузере на телефоне, планшете и компьютере, поддерживает связи между материалами и подключение ИИ-агентов.',
-  canonical = 'https://threadline.tigerapps.pro/',
+  lang = detectedLang,
+} = Astro.props;
+
+const strings = getStrings(lang);
+
+const {
+  title = strings.meta.title,
+  description = strings.meta.description,
+  canonical = (lang === 'en' ? 'https://threadline.tigerapps.pro/en/' : 'https://threadline.tigerapps.pro/'),
   ogImage = 'https://threadline.tigerapps.pro/og-cover.png',
-  lang = 'ru',
-  ogLocale = 'ru_RU',
 } = Astro.props;
 
 const siteName = 'THREADLINE';
@@ -24,7 +29,7 @@ const fullTitle = title.includes('THREADLINE') ? title : `${title} — ${siteNam
 ---
 
 <!doctype html>
-<html lang={lang} class="scroll-smooth">
+<html lang={lang === 'en' ? 'en' : 'ru'} class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -44,7 +49,7 @@ const fullTitle = title.includes('THREADLINE') ? title : `${title} — ${siteNam
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale" content={lang === 'en' ? 'en_US' : 'ru_RU'} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -53,7 +58,7 @@ const fullTitle = title.includes('THREADLINE') ? title : `${title} — ${siteNam
     <meta name="twitter:image" content={ogImage} />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/icon-192.png" />
     <link rel="manifest" href="/manifest.json" />
 
@@ -74,7 +79,11 @@ const fullTitle = title.includes('THREADLINE') ? title : `${title} — ${siteNam
       operatingSystem: 'Web',
       description,
       url: 'https://threadline.tigerapps.pro',
-      offers: [
+      offers: lang === 'en' ? [
+        { '@type': 'Offer', name: 'Free', price: '0', priceCurrency: 'USD' },
+        { '@type': 'Offer', name: 'Standard', price: '8', priceCurrency: 'USD' },
+        { '@type': 'Offer', name: 'Pro', price: '24', priceCurrency: 'USD' },
+      ] : [
         { '@type': 'Offer', name: 'Бесплатный', price: '0', priceCurrency: 'RUB' },
         { '@type': 'Offer', name: 'Стандарт', price: '990', priceCurrency: 'RUB' },
         { '@type': 'Offer', name: 'Про', price: '4990', priceCurrency: 'RUB' },
@@ -102,80 +111,36 @@ const fullTitle = title.includes('THREADLINE') ? title : `${title} — ${siteNam
     --bg-deep: 240 33% 4%;
     --bg-base: 240 25% 6%;
     --bg-surface: 240 20% 9%;
-    --bg-elevated: 240 17% 12%;
-    --bg-hover: 240 20% 16%;
 
-    --text-primary: 260 20% 92%;
-    --text-secondary: 255 8% 70%;
-    --text-muted: 255 8% 50%;
-    --text-label: 255 8% 40%;
-    --text-ghost: 255 8% 35%;
+    --border-subtle: hsla(255, 12%, 100%, 0.08);
+    --hairline: hsla(255, 12%, 100%, 0.05);
+    --text-low: hsl(255, 8%, 60%);
+    --text-base: hsl(255, 8%, 70%);
+    --text-bright: hsl(255, 12%, 90%);
 
-    --border-subtle: rgba(255, 255, 255, 0.05);
-    --border-default: rgba(255, 255, 255, 0.08);
-    --border-hover: rgba(255, 255, 255, 0.12);
+    --brand-mint: #42DFC1;
+    --brand-violet: #6D4ADE;
+    --brand-indigo: #420881;
 
-    --mint: #42DFC1;
-    --violet: #6D4ADE;
-    --indigo: #420881;
+    --brand-gradient: linear-gradient(135deg, #42DFC1 0%, #6D4ADE 50%, #420881 100%);
+    --brand-gradient-text: linear-gradient(135deg, #42DFC1 0%, #6D4ADE 100%);
 
-    --brand-gradient: linear-gradient(135deg, #42DFC1 0%, #6D4ADE 55%, #420881 100%);
-    --brand-gradient-soft: linear-gradient(135deg, rgba(66,223,193,0.16) 0%, rgba(109,74,222,0.18) 55%, rgba(66,8,129,0.22) 100%);
-    --brand-gradient-text: linear-gradient(135deg, #42DFC1 0%, #8E72E6 50%, #420881 100%);
+    --font-display: 'Space Grotesk', 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
   }
 
-  * { box-sizing: border-box; }
-
-  html, body { margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  section[id] { scroll-margin-top: 84px; }
-  body {
-    position: relative;
-    background:
-      linear-gradient(180deg, hsl(240, 33%, 4%) 0%, hsl(242, 32%, 4%) 42%, hsl(240, 33%, 4%) 100%);
-    color: hsl(260, 20%, 92%);
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  html, body {
+    background: var(--bg-deep);
+    color: var(--text-bright);
+    font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-feature-settings: 'cv11', 'ss01', 'ss03';
-    overflow-x: hidden;
+  }
+  body {
     min-height: 100vh;
   }
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    pointer-events: none;
-    background:
-      radial-gradient(ellipse 60% 36% at 18% 0%, rgba(66,223,193,0.11) 0%, rgba(66,223,193,0.04) 34%, transparent 68%),
-      radial-gradient(ellipse 54% 32% at 84% 8%, rgba(109,74,222,0.16) 0%, rgba(109,74,222,0.05) 36%, transparent 70%),
-      radial-gradient(ellipse 72% 38% at 50% 30%, rgba(66,8,129,0.14) 0%, rgba(66,8,129,0.045) 42%, transparent 76%),
-      radial-gradient(ellipse 58% 34% at 10% 58%, rgba(66,223,193,0.075) 0%, transparent 72%),
-      radial-gradient(ellipse 62% 36% at 92% 72%, rgba(109,74,222,0.12) 0%, transparent 72%),
-      radial-gradient(ellipse 70% 38% at 50% 100%, rgba(66,8,129,0.18) 0%, transparent 76%);
-  }
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background: linear-gradient(180deg, rgba(7,7,13,0.08) 0%, rgba(7,7,13,0.34) 58%, rgba(7,7,13,0.18) 100%);
-  }
-  body > * {
-    position: relative;
-    z-index: 0;
-  }
-  ::selection { background: rgba(109, 74, 222, 0.32); color: hsl(260, 20%, 92%); }
-  ::-webkit-scrollbar { width: 8px; height: 8px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: rgba(66, 223, 193, 0.18); border-radius: 8px; }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(66, 223, 193, 0.32); }
 
-  .font-display { font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif; }
-  .font-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
-
+  .font-display { font-family: var(--font-display); letter-spacing: -0.015em; }
   .text-gradient {
     background: var(--brand-gradient-text);
     -webkit-background-clip: text;
@@ -184,35 +149,17 @@ const fullTitle = title.includes('THREADLINE') ? title : `${title} — ${siteNam
     color: transparent;
   }
 
-  .bg-brand { background: var(--brand-gradient); }
-  .bg-brand-soft { background: var(--brand-gradient-soft); }
-
-  .ring-glow {
-    box-shadow:
-      0 0 0 1px rgba(66, 223, 193, 0.45),
-      0 0 24px rgba(66, 223, 193, 0.20);
-  }
-
-  .surface-card {
-    background: hsl(240, 25%, 7%);
-    border: 1px solid var(--border-subtle);
-    border-radius: 14px;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.03),
-      0 1px 1px rgba(0, 0, 0, 0.20),
-      0 8px 24px rgba(0, 0, 0, 0.30);
-  }
-
-  .hairline-bottom { border-bottom: 1px solid var(--border-subtle); }
-  .hairline-top { border-top: 1px solid var(--border-subtle); }
-
+  ::selection { background: rgba(66,223,193,0.32); color: hsl(255, 12%, 96%); }
   a { color: inherit; text-decoration: none; }
-  button { font-family: inherit; cursor: pointer; }
+  button { font-family: inherit; }
 
-  /* Reveal-on-scroll */
-  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.in { opacity: 1; transform: translateY(0); }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1; transform: none; transition: none; }
+  .hairline-top { border-top: 1px solid var(--hairline); }
+  .hairline-bottom { border-bottom: 1px solid var(--hairline); }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
+  .reveal.in { opacity: 1; transform: translateY(0); }
 </style>
